@@ -2,7 +2,7 @@
 
 `pco_api` is a Rubygem that provides a simple wrapper around our RESTful JSON api at https://api.planningcenteronline.com.
 
-# TODO
+## TODO
 
 Right now the API only supports GET requests. Next we'll add POST, PATCH, and DELETE.
 
@@ -118,6 +118,6 @@ api.people.v1.people.get(order: 'last_name')
 }
 ```
 
-# Copyright & License
+## Copyright & License
 
 Copyright 2015, Ministry Centered Technologies. Licensed MIT.
