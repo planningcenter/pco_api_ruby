@@ -6,7 +6,7 @@ describe PCO::API::Endpoint do
 
   subject { base }
 
-  describe '#people#v1' do
+  describe '#method_missing' do
     before do
       @result = subject.people.v1
     end
@@ -14,6 +14,17 @@ describe PCO::API::Endpoint do
     it 'returns a wrapper object with updated url' do
       expect(@result).to be_a(described_class)
       expect(@result.url).to match(%r{/people/v1$})
+    end
+  end
+
+  describe '#[]' do
+    before do
+      @result = subject.people.v1.people[1]
+    end
+
+    it 'returns a wrapper object with updated url' do
+      expect(@result).to be_a(described_class)
+      expect(@result.url).to match(%r{/people/v1/people/1$})
     end
   end
 

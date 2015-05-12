@@ -13,16 +13,15 @@ module PCO
         @auth_token = auth_token
         @auth_secret = auth_secret
         @connection = connection || _build_connection
-        @methods = {}
+        @cache = {}
       end
 
-      def method_missing(method_name, *args)
-        @methods[method_name.to_s] ||= begin
-          self.class.new(
-            url: File.join(url, method_name.to_s),
-            connection: @connection
-          )
-        end
+      def method_missing(method_name, *_args)
+        _build_endpoint(method_name.to_s)
+      end
+
+      def [](id)
+        _build_endpoint(id.to_s)
       end
 
       def get(*args)
@@ -37,6 +36,15 @@ module PCO
       end
 
       private
+
+      def _build_endpoint(path)
+        @cache[path] ||= begin
+          self.class.new(
+            url: File.join(url, path.to_s),
+            connection: @connection
+          )
+        end
+      end
 
       def _build_connection
         return unless @auth_token && @auth_secret
