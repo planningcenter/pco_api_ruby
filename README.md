@@ -4,7 +4,8 @@
 
 ## TODO
 
-Right now the API only supports GET requests. Next we'll add POST, PATCH, and DELETE.
+* Doesn't yet support POST, PATCH, or DELETE requests.
+* Doesn't yet support any authentication method other than HTTP Basic.
 
 ## Installation
 
@@ -14,9 +15,10 @@ gem install pco_api
 
 ## Usage
 
-1. Chain path elements together as method calls, e.g. `/people/v1/emails` becomes `api.people.v1.emails`.
-2. For IDs, treat the object like a hash (use square brackets), e.g. `/people/v1/emails/1` becomes `api.people.v1.emails[1]`.
-3. To execute the request, use `get`, e.g. `api.people.v1.emails[1].get`.
+1. Create a new API object, passing in your credentials, e.g. `api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')`
+2. Chain path elements together as method calls, e.g. `api.people.v1.emails` becomes `/people/v1/emails`.
+3. For IDs, treat the object like a hash (use square brackets), e.g. `api.people.v1.emails[1]` becomes `/people/v1/emails/1`.
+4. To execute the request, use `get` as a kicker, e.g. `api.people.v1.emails[1].get`.
 
 ## Example
 
