@@ -35,7 +35,7 @@ api.people.v1.people.get(order: 'last_name')
 {
   "links" => {
     "self" => "https://api.planningcenteronline.com/people/v1/people?order=last_name",
-    "next" => "http://api.planningcenteronline.com/people/v1/people?offset=25&order=last_name"
+    "next" => "https://api.planningcenteronline.com/people/v1/people?offset=25&order=last_name"
   },
   "data"=> [
     {
@@ -58,7 +58,7 @@ api.people.v1.people.get(order: 'last_name')
       "updated_at" => "2015-04-10T18:59:51Z",
       "avatar" => nil,
       "links" => {
-        "self" => "http://api.pco.dev/people/v1/people/271"
+        "self" => "https://api.planningcenteronline.com/people/v1/people/271"
       }
     },
     # ...
