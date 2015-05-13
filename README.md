@@ -14,10 +14,35 @@ gem install pco_api
 
 ## Usage
 
-1. Create a new API object, passing in your credentials, e.g. `api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')`
-2. Chain path elements together as method calls, e.g. `api.people.v1.emails` becomes `/people/v1/emails`.
-3. For IDs, treat the object like a hash (use square brackets), e.g. `api.people.v1.emails[1]` becomes `/people/v1/emails/1`.
-4. To execute the request, use `get`, `post`, `patch`, or `delete`, optionally passing arguments, e.g. `api.people.v1.emails[1].get(order: 'location')`.
+1. Create a new API object, passing in your credentials.
+
+    ```ruby
+    api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')
+    ```
+
+2. Chain path elements together as method calls.
+
+    ```ruby
+    api.people.v1.emails
+    # /people/v1/emails
+    ```
+
+3. For IDs, treat the object like a hash (use square brackets).
+
+    ```ruby
+    api.people.v1.emails[1]
+    # /people/v1/emails/1
+    ```
+
+4. To execute the request, use `get`, `post`, `patch`, or `delete`, optionally passing arguments.
+
+    ```ruby
+    api.people.v1.emails[1].get(order: 'location')
+    # GET /people/v1/emails/1
+
+    api.people.v1.emails.post(data: new_email)
+    # POST /people/v1/emails
+    ```
 
 ## Example
 
