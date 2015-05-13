@@ -4,7 +4,6 @@
 
 ## TODO
 
-* Doesn't yet support POST, PATCH, or DELETE requests.
 * Doesn't yet support any authentication method other than HTTP Basic.
 
 ## Installation
@@ -18,7 +17,7 @@ gem install pco_api
 1. Create a new API object, passing in your credentials, e.g. `api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')`
 2. Chain path elements together as method calls, e.g. `api.people.v1.emails` becomes `/people/v1/emails`.
 3. For IDs, treat the object like a hash (use square brackets), e.g. `api.people.v1.emails[1]` becomes `/people/v1/emails/1`.
-4. To execute the request, use `get` as a kicker, e.g. `api.people.v1.emails[1].get`.
+4. To execute the request, use `get`, `post`, `patch`, or `delete`, optionally passing arguments, e.g. `api.people.v1.emails[1].get(order: 'location')`.
 
 ## Example
 
@@ -119,6 +118,69 @@ api.people.v1.people.get(order: 'last_name')
   }
 }
 ```
+
+## get()
+
+`get()` works for a collection (index) and a single resource (show).
+
+```ruby
+# collection
+api.people.v1.people.get(order: 'last_name')
+# => { data: array_of_resources }
+
+# single resource
+api.people.v1.people[1].get
+# => { data: resource_hash }
+```
+
+## post()
+
+`post()` sends a POST request to create a new resource. You *must* wrap your resource with
+a `{ data: { ... } }` hash.
+
+```ruby
+api.people.v1.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
+# => { data: resource_hash }
+```
+
+## patch()
+
+`patch()` sends a PATCH request to update an existing resource. You *must* wrap your resource with
+a `{ data: { ... } }` hash.
+
+```ruby
+api.people.v1.people[1].patch(data: { first_name: 'Tim', last_name: 'Morgan' })
+# => { data: resource_hash }
+```
+
+## delete()
+
+`delete()` sends a DELETE request to delete an existing resource. This method returns `true` if the delete was successful.
+
+```ruby
+api.people.v1.people[1].delete
+# => true
+```
+
+## Errors
+
+The following errors may be raised, which you should rescue in most circumstances.
+
+| HTTP Status Codes   | Error Class                     |
+| ------------------- | ------------------------------- |
+| 404                 | `PCO::API::Errors::NotFound`    |
+| 4xx (except 404)    | `PCO::API::Errors::ClientError` |
+| 5xx                 | `PCO::API::Errors::ServerError` |
+
+The exception class has the following methods:
+
+| Method  | Content                                         |
+| ------- | ----------------------------------------------- |
+| status  | HTTP status code returned by the server         |
+| message | the body of the response returned by the server |
+
+The `message` will usually be a hash (produced by parsing the response JSON),
+but in the case of some server errors, may be a string containing the raw response.
 
 ## Copyright & License
 
