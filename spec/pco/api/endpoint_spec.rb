@@ -68,11 +68,133 @@ describe PCO::API::Endpoint do
           .to_return(status: 404, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       end
 
-      it 'raises an NotFound error' do
+      it 'raises a NotFound error' do
         expect {
           subject.get
         }.to raise_error(PCO::API::Errors::NotFound)
       end
+    end
+
+    context 'given a client error' do
+      subject { base.people.v1.error }
+
+      let(:result) do
+        {
+          'status'  => 400,
+          'message' => 'Bad request'
+        }
+      end
+
+      before do
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v1/error')
+          .to_return(status: 400, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+      end
+
+      it 'raises a ClientError error' do
+        expect {
+          subject.get
+        }.to raise_error(PCO::API::Errors::ClientError)
+      end
+    end
+
+    context 'given a server error' do
+      subject { base.people.v1.error }
+
+      let(:result) do
+        {
+          'status'  => 500,
+          'message' => 'System error has occurred'
+        }
+      end
+
+      before do
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v1/error')
+          .to_return(status: 500, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+      end
+
+      it 'raises a ServerError error' do
+        expect {
+          subject.get
+        }.to raise_error(PCO::API::Errors::ServerError)
+      end
+    end
+  end
+
+  describe '#post' do
+    subject { base.people.v1.people }
+
+    let(:resource) do
+      {
+        'type'       => 'Person',
+        'first_name' => 'Tim',
+        'last_name'  => 'Morgan'
+      }
+    end
+
+    let(:result) do
+      {
+        'type'       => 'Person',
+        'id'         => '1',
+        'first_name' => 'Tim',
+        'last_name'  => 'Morgan'
+      }
+    end
+
+    before do
+      stub_request(:post, 'https://api.planningcenteronline.com/people/v1/people')
+        .to_return(status: 201, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+      @result = subject.post(data: resource)
+    end
+
+    it 'returns the result of making a POST request to the endpoint' do
+      expect(@result).to be_a(Hash)
+      expect(@result['data']).to eq(result)
+    end
+  end
+
+  describe '#patch' do
+    subject { base.people.v1.people[1] }
+
+    let(:resource) do
+      {
+        'type'       => 'Person',
+        'first_name' => 'Tim',
+        'last_name'  => 'Morgan'
+      }
+    end
+
+    let(:result) do
+      {
+        'type'       => 'Person',
+        'id'         => '1',
+        'first_name' => 'Tim',
+        'last_name'  => 'Morgan'
+      }
+    end
+
+    before do
+      stub_request(:patch, 'https://api.planningcenteronline.com/people/v1/people/1')
+        .to_return(status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+      @result = subject.patch(data: resource)
+    end
+
+    it 'returns the result of making a PATCH request to the endpoint' do
+      expect(@result).to be_a(Hash)
+      expect(@result['data']).to eq(result)
+    end
+  end
+
+  describe '#delete' do
+    subject { base.people.v1.people[1] }
+
+    before do
+      stub_request(:delete, 'https://api.planningcenteronline.com/people/v1/people/1')
+        .to_return(status: 204, body: '')
+      @result = subject.delete
+    end
+
+    it 'returns true' do
+      expect(@result).to eq(true)
     end
   end
 end

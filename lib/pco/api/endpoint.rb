@@ -24,18 +24,59 @@ module PCO
         _build_endpoint(id.to_s)
       end
 
-      def get(*args)
-        result = @connection.get(@url, *args)
-        @last_result = result
-        case result.status
-        when 200
-          result.body
+      def respond_to?(method_name)
+        endpoint = _build_endpoint(method_name.to_s)
+        endpoint.head
+      end
+
+      def head
+        @connection.head(@url)
+      end
+
+      def get(params = {})
+        @last_result = @connection.get(@url, params)
+        _build_response(@last_result)
+      end
+
+      def post(body = {})
+        @last_result = @connection.post(@url) do |req|
+          req.body = body.to_json
+        end
+        _build_response(@last_result)
+      end
+
+      def patch(body = {})
+        @last_result = @connection.patch(@url) do |req|
+          req.body = body.to_json
+        end
+        _build_response(@last_result)
+      end
+
+      def delete
+        @last_result = @connection.delete(@url)
+        if @last_result.status == 204
+          true
         else
-          fail Errors::NotFound.new(result)
+          _build_response(@last_result)
         end
       end
 
       private
+
+      def _build_response(result)
+        case result.status
+        when 200..299
+          result.body
+        when 404
+          fail Errors::NotFound, result
+        when 400..499
+          fail Errors::ClientError, result
+        when 500..599
+          fail Errors::ServerError, result
+        else
+          fail "unknown status #{result.status}"
+        end
+      end
 
       def _build_endpoint(path)
         @cache[path] ||= begin

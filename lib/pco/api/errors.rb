@@ -1,7 +1,7 @@
 module PCO
   module API
     module Errors
-      class NotFound < StandardError
+      class BaseError < StandardError
         attr_reader :status
 
         def initialize(response)
@@ -17,6 +17,10 @@ module PCO
           "<#{self.class.name} status=#{@status} message=#{@message}>"
         end
       end
+
+      class NotFound    < BaseError; end
+      class ClientError < BaseError; end
+      class ServerError < BaseError; end
     end
   end
 end
