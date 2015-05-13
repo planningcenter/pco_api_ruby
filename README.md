@@ -38,7 +38,7 @@ gem install pco_api
 
     ```ruby
     api.people.v1.emails[1].get(order: 'location')
-    # GET /people/v1/emails/1
+    # GET /people/v1/emails/1?order=location
 
     api.people.v1.emails.post(data: new_email)
     # POST /people/v1/emails
