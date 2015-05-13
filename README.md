@@ -23,25 +23,22 @@ gem install pco_api
 2. Chain path elements together as method calls.
 
     ```ruby
-    api.people.v1.emails
-    # /people/v1/emails
+    api.people.v1.households
+    # /people/v1/households
     ```
 
 3. For IDs, treat the object like a hash (use square brackets).
 
     ```ruby
-    api.people.v1.emails[1]
-    # /people/v1/emails/1
+    api.people.v1.households[1]
+    # /people/v1/households/1
     ```
 
 4. To execute the request, use `get`, `post`, `patch`, or `delete`, optionally passing arguments.
 
     ```ruby
-    api.people.v1.emails[1].get(order: 'location')
-    # GET /people/v1/emails/1?order=location
-
-    api.people.v1.emails.post(data: new_email)
-    # POST /people/v1/emails
+    api.people.v1.households.get(order: 'name')
+    # GET /people/v1/households?order=name
     ```
 
 ## Example
