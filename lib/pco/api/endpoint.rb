@@ -26,11 +26,13 @@ module PCO
 
       def respond_to?(method_name)
         endpoint = _build_endpoint(method_name.to_s)
-        endpoint.head
-      end
-
-      def head
-        @connection.head(@url)
+        begin
+          endpoint.get
+        rescue Errors::NotFound
+          false
+        else
+          true
+        end
       end
 
       def get(params = {})
