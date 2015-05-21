@@ -8,10 +8,11 @@ module PCO
     class Endpoint
       attr_reader :url, :last_result
 
-      def initialize(url: URL, auth_token: nil, auth_secret: nil, connection: nil)
+      def initialize(url: URL, oauth_access_token: nil, basic_auth_token: nil, basic_auth_secret: nil, connection: nil)
         @url = url
-        @auth_token = auth_token
-        @auth_secret = auth_secret
+        @oauth_access_token = oauth_access_token
+        @basic_auth_token = basic_auth_token
+        @basic_auth_secret = basic_auth_secret
         @connection = connection || _build_connection
         @cache = {}
       end
@@ -90,11 +91,16 @@ module PCO
       end
 
       def _build_connection
-        return unless @auth_token && @auth_secret
         Faraday.new(url: url) do |faraday|
           faraday.adapter :excon
           faraday.response :json, content_type: /\bjson$/
-          faraday.basic_auth @auth_token, @auth_secret
+          if @basic_auth_token && @basic_auth_secret
+            faraday.basic_auth @basic_auth_token, @basic_auth_secret
+          elsif @oauth_access_token
+            faraday.headers['Authorization'] = "Bearer #{@oauth_access_token}"
+          else
+            fail Errors::AuthRequiredError, "You must specify either HTTP basic auth credentials or an OAuth2 access token."
+          end
         end
       end
     end

@@ -1,6 +1,8 @@
 module PCO
   module API
     module Errors
+      class AuthRequiredError < StandardError; end
+
       class BaseError < StandardError
         attr_reader :status
 

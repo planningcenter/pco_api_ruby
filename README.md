@@ -2,10 +2,6 @@
 
 `pco_api` is a Rubygem that provides a simple wrapper around our RESTful JSON api at https://api.planningcenteronline.com.
 
-## TODO
-
-* Doesn't yet support any authentication method other than HTTP Basic.
-
 ## Installation
 
 ```
@@ -14,10 +10,13 @@ gem install pco_api
 
 ## Usage
 
-1. Create a new API object, passing in your credentials.
+1. Create a new API object, passing in your credentials (either HTTP Basic or OAuth2 access token):
 
     ```ruby
-    api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')
+    # authenticate with HTTP Basic:
+    api = PCO::API.new(basic_auth_token: 'token', basic_auth_secret: 'secret')
+    # ...or authenticate with an OAuth2 access token (use the 'oauth2' gem to obtain the token)
+    api = PCO::API.new(oauth_access_token: 'token')
     ```
 
 2. Chain path elements together as method calls.
