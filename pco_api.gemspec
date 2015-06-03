@@ -6,8 +6,9 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/planningcenter/pco_api_ruby"
   s.summary     = "Ruby wrapper for the RESTful PCO API"
   s.description = "Ruby wrapper for the RESTful PCO API"
+  s.author      = ["Planning Center Online"]
 
-  s.files = Dir["{app,config,db,lib}/**/*", "Rakefile", "README.md"]
+  s.files = Dir["lib/**/*", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "faraday", "~> 0.9.1"
