@@ -4,9 +4,9 @@ Gem::Specification.new do |s|
   s.name        = "pco_api"
   s.version     = PCO::API::VERSION
   s.homepage    = "https://github.com/planningcenter/pco_api_ruby"
-  s.summary     = "Ruby wrapper for the RESTful PCO API"
-  s.description = "Ruby wrapper for the RESTful PCO API"
-  s.author      = ["Planning Center Online"]
+  s.summary     = "Ruby wrapper for api.planningcenteronline.com"
+  s.description = "Ruby wrapper for api.planningcenteronline.com"
+  s.author      = "Planning Center Online"
 
   s.files = Dir["lib/**/*", "README.md"]
   s.test_files = Dir["spec/**/*"]
