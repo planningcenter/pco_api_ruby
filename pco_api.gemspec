@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/planningcenter/pco_api_ruby"
   s.summary     = "Ruby wrapper for api.planningcenteronline.com"
   s.description = "Ruby wrapper for api.planningcenteronline.com"
-  s.author      = ["Planning Center Online"]
+  s.author      = "Planning Center Online"
 
   s.files = Dir["lib/**/*", "README.md"]
   s.test_files = Dir["spec/**/*"]
