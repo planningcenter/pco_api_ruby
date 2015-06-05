@@ -1,4 +1,6 @@
-require_relative "lib/pco/api/version"
+$:.push File.expand_path('../lib', __FILE__)
+
+require 'pco/api/version'
 
 Gem::Specification.new do |s|
   s.name        = "pco_api"
