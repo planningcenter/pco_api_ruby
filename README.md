@@ -24,22 +24,22 @@ gem install pco_api
 2. Chain path elements together as method calls.
 
     ```ruby
-    api.people.v1.households
-    # /people/v1/households
+    api.people.v2.households
+    # /people/v2/households
     ```
 
 3. For IDs, treat the object like a hash (use square brackets).
 
     ```ruby
-    api.people.v1.households[1]
-    # /people/v1/households/1
+    api.people.v2.households[1]
+    # /people/v2/households/1
     ```
 
 4. To execute the request, use `get`, `post`, `patch`, or `delete`, optionally passing arguments.
 
     ```ruby
-    api.people.v1.households.get(order: 'name')
-    # GET /people/v1/households?order=name
+    api.people.v2.households.get(order: 'name')
+    # GET /people/v2/households?order=name
     ```
 
 ## Example
@@ -48,7 +48,7 @@ gem install pco_api
 require 'pco_api'
 
 api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')
-api.people.v1.people.get(order: 'last_name')
+api.people.v2.people.get(order: 'last_name')
 ```
 
 ...which returns something like:
@@ -56,8 +56,8 @@ api.people.v1.people.get(order: 'last_name')
 ```ruby
 {
   "links" => {
-    "self" => "https://api.planningcenteronline.com/people/v1/people?order=last_name",
-    "next" => "https://api.planningcenteronline.com/people/v1/people?offset=25&order=last_name"
+    "self" => "https://api.planningcenteronline.com/people/v2/people?order=last_name",
+    "next" => "https://api.planningcenteronline.com/people/v2/people?offset=25&order=last_name"
   },
   "data"=> [
     {
@@ -80,7 +80,7 @@ api.people.v1.people.get(order: 'last_name')
       "updated_at" => "2015-04-10T18:59:51Z",
       "avatar" => nil,
       "links" => {
-        "self" => "https://api.planningcenteronline.com/people/v1/people/271"
+        "self" => "https://api.planningcenteronline.com/people/v2/people/271"
       }
     },
     # ...
@@ -148,11 +148,11 @@ api.people.v1.people.get(order: 'last_name')
 
 ```ruby
 # collection
-api.people.v1.people.get(order: 'last_name')
+api.people.v2.people.get(order: 'last_name')
 # => { data: array_of_resources }
 
 # single resource
-api.people.v1.people[1].get
+api.people.v2.people[1].get
 # => { data: resource_hash }
 ```
 
@@ -162,7 +162,7 @@ api.people.v1.people[1].get
 a `{ data: { ... } }` hash.
 
 ```ruby
-api.people.v1.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
+api.people.v2.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
 # => { data: resource_hash }
 ```
 
@@ -172,7 +172,7 @@ api.people.v1.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
 a `{ data: { ... } }` hash.
 
 ```ruby
-api.people.v1.people[1].patch(data: { first_name: 'Tim', last_name: 'Morgan' })
+api.people.v2.people[1].patch(data: { first_name: 'Tim', last_name: 'Morgan' })
 # => { data: resource_hash }
 ```
 
@@ -181,7 +181,7 @@ api.people.v1.people[1].patch(data: { first_name: 'Tim', last_name: 'Morgan' })
 `delete()` sends a DELETE request to delete an existing resource. This method returns `true` if the delete was successful.
 
 ```ruby
-api.people.v1.people[1].delete
+api.people.v2.people[1].delete
 # => true
 ```
 

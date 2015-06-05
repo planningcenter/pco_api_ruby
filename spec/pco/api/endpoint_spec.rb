@@ -8,29 +8,29 @@ describe PCO::API::Endpoint do
 
   describe '#method_missing' do
     before do
-      @result = subject.people.v1
+      @result = subject.people.v2
     end
 
     it 'returns a wrapper object with updated url' do
       expect(@result).to be_a(described_class)
-      expect(@result.url).to match(%r{/people/v1$})
+      expect(@result.url).to match(%r{/people/v2$})
     end
   end
 
   describe '#[]' do
     before do
-      @result = subject.people.v1.people[1]
+      @result = subject.people.v2.people[1]
     end
 
     it 'returns a wrapper object with updated url' do
       expect(@result).to be_a(described_class)
-      expect(@result.url).to match(%r{/people/v1/people/1$})
+      expect(@result.url).to match(%r{/people/v2/people/1$})
     end
   end
 
   describe '#get' do
     context 'given a good URL' do
-      subject { base.people.v1 }
+      subject { base.people.v2 }
 
       let(:result) do
         {
@@ -42,7 +42,7 @@ describe PCO::API::Endpoint do
       end
 
       before do
-        stub_request(:get, 'https://api.planningcenteronline.com/people/v1')
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v2')
           .to_return(status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
         @result = subject.get
       end
@@ -54,7 +54,7 @@ describe PCO::API::Endpoint do
     end
 
     context 'given a non-existent URL' do
-      subject { base.people.v1.non_existent }
+      subject { base.people.v2.non_existent }
 
       let(:result) do
         {
@@ -64,7 +64,7 @@ describe PCO::API::Endpoint do
       end
 
       before do
-        stub_request(:get, 'https://api.planningcenteronline.com/people/v1/non_existent')
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v2/non_existent')
           .to_return(status: 404, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       end
 
@@ -76,7 +76,7 @@ describe PCO::API::Endpoint do
     end
 
     context 'given a client error' do
-      subject { base.people.v1.error }
+      subject { base.people.v2.error }
 
       let(:result) do
         {
@@ -86,7 +86,7 @@ describe PCO::API::Endpoint do
       end
 
       before do
-        stub_request(:get, 'https://api.planningcenteronline.com/people/v1/error')
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v2/error')
           .to_return(status: 400, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       end
 
@@ -98,7 +98,7 @@ describe PCO::API::Endpoint do
     end
 
     context 'given a server error' do
-      subject { base.people.v1.error }
+      subject { base.people.v2.error }
 
       let(:result) do
         {
@@ -108,7 +108,7 @@ describe PCO::API::Endpoint do
       end
 
       before do
-        stub_request(:get, 'https://api.planningcenteronline.com/people/v1/error')
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v2/error')
           .to_return(status: 500, body: result.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       end
 
@@ -121,7 +121,7 @@ describe PCO::API::Endpoint do
   end
 
   describe '#post' do
-    subject { base.people.v1.people }
+    subject { base.people.v2.people }
 
     let(:resource) do
       {
@@ -141,7 +141,7 @@ describe PCO::API::Endpoint do
     end
 
     before do
-      stub_request(:post, 'https://api.planningcenteronline.com/people/v1/people')
+      stub_request(:post, 'https://api.planningcenteronline.com/people/v2/people')
         .to_return(status: 201, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       @result = subject.post(data: resource)
     end
@@ -153,7 +153,7 @@ describe PCO::API::Endpoint do
   end
 
   describe '#patch' do
-    subject { base.people.v1.people[1] }
+    subject { base.people.v2.people[1] }
 
     let(:resource) do
       {
@@ -173,7 +173,7 @@ describe PCO::API::Endpoint do
     end
 
     before do
-      stub_request(:patch, 'https://api.planningcenteronline.com/people/v1/people/1')
+      stub_request(:patch, 'https://api.planningcenteronline.com/people/v2/people/1')
         .to_return(status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
       @result = subject.patch(data: resource)
     end
@@ -185,10 +185,10 @@ describe PCO::API::Endpoint do
   end
 
   describe '#delete' do
-    subject { base.people.v1.people[1] }
+    subject { base.people.v2.people[1] }
 
     before do
-      stub_request(:delete, 'https://api.planningcenteronline.com/people/v1/people/1')
+      stub_request(:delete, 'https://api.planningcenteronline.com/people/v2/people/1')
         .to_return(status: 204, body: '')
       @result = subject.delete
     end
