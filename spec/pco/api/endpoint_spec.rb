@@ -2,7 +2,7 @@ require_relative '../../spec_helper'
 require 'json'
 
 describe PCO::API::Endpoint do
-  let(:base) { described_class.new(auth_token: 'token', auth_secret: 'secret') }
+  let(:base) { described_class.new(basic_auth_token: 'token', basic_auth_secret: 'secret') }
 
   subject { base }
 
