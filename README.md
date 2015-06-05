@@ -187,11 +187,17 @@ api.people.v1.people[1].delete
 
 The following errors may be raised, which you should rescue in most circumstances.
 
-| HTTP Status Codes   | Error Class                     |
-| ------------------- | ------------------------------- |
-| 404                 | `PCO::API::Errors::NotFound`    |
-| 4xx (except 404)    | `PCO::API::Errors::ClientError` |
-| 5xx                 | `PCO::API::Errors::ServerError` |
+| HTTP Status Codes   | Error Class                                                               |
+| ------------------- | ------------------------------------------------------------------------- |
+| 400                 | `PCO::API::Errors::BadRequest` < `PCO::API::Errors::ClientError`          |
+| 401                 | `PCO::API::Errors::Unauthorized` < `PCO::API::Errors::ClientError`        |
+| 403                 | `PCO::API::Errors::Forbidden` < `PCO::API::Errors::ClientError`           |
+| 404                 | `PCO::API::Errors::NotFound` < `PCO::API::Errors::ClientError`            |
+| 405                 | `PCO::API::Errors::MethodNotAllowed` < `PCO::API::Errors::ClientError`    |
+| 422                 | `PCO::API::Errors::UnprocessableEntity` < `PCO::API::Errors::ClientError` |
+| other 4xx errors    | `PCO::API::Errors::ClientError`                                           |
+| 500                 | `PCO::API::Errors::InternalServerError` < `PCO::API::Errors::ServerError` |
+| other 5xx errors    | `PCO::API::Errors::ServerError`                                           |
 
 The exception class has the following methods:
 

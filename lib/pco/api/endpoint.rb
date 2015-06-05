@@ -70,10 +70,22 @@ module PCO
         case result.status
         when 200..299
           result.body
+        when 400
+          fail Errors::BadRequest, result
+        when 401
+          fail Errors::Unauthorized, result
+        when 403
+          fail Errors::Forbidden, result
         when 404
           fail Errors::NotFound, result
+        when 405
+          fail Errors::MethodNotAllowed, result
+        when 422
+          fail Errors::UnprocessableEntity, result
         when 400..499
           fail Errors::ClientError, result
+        when 500
+          fail Errors::InternalServerError, result
         when 500..599
           fail Errors::ServerError, result
         else
