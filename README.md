@@ -47,7 +47,7 @@ gem install pco_api
 ```ruby
 require 'pco_api'
 
-api = PCO::API.new(auth_token: 'token', auth_secret: 'secret')
+api = PCO::API.new(basic_auth_token: 'token', basic_auth_secret: 'secret')
 api.people.v2.people.get(order: 'last_name')
 ```
 
