@@ -162,7 +162,7 @@ api.people.v2.people[1].get
 a `{ data: { ... } }` hash.
 
 ```ruby
-api.people.v2.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
+api.people.v2.people.post(data: { type: 'Person', attributes: { first_name: 'Tim', last_name: 'Morgan' } })
 # => { data: resource_hash }
 ```
 
@@ -172,7 +172,7 @@ api.people.v2.people.post(data: { first_name: 'Tim', last_name: 'Morgan' })
 a `{ data: { ... } }` hash.
 
 ```ruby
-api.people.v2.people[1].patch(data: { first_name: 'Tim', last_name: 'Morgan' })
+api.people.v2.people[1].patch(data: { type: 'Person', id: 1, attributes: { first_name: 'Tim', last_name: 'Morgan' } })
 # => { data: resource_hash }
 ```
 
