@@ -1,5 +1,7 @@
 # pco_api
 
+[![Circle CI](https://circleci.com/gh/planningcenter/pco_api_ruby/tree/master.svg?style=svg)](https://circleci.com/gh/planningcenter/pco_api_ruby/tree/master)
+
 `pco_api` is a Rubygem that provides a simple wrapper around our RESTful JSON api at https://api.planningcenteronline.com.
 
 ## Installation
