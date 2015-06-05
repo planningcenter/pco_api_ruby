@@ -12,6 +12,8 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
   s.email       = "support@planningcenteronline.com"
 
+  s.required_ruby_version = '>= 2.0.0'
+
   s.files = Dir["lib/**/*", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
