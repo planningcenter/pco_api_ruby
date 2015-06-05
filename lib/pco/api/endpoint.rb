@@ -43,14 +43,14 @@ module PCO
 
       def post(body = {})
         @last_result = @connection.post(@url) do |req|
-          req.body = body.to_json
+          req.body = _build_body(body)
         end
         _build_response(@last_result)
       end
 
       def patch(body = {})
         @last_result = @connection.patch(@url) do |req|
-          req.body = body.to_json
+          req.body = _build_body(body)
         end
         _build_response(@last_result)
       end
@@ -79,6 +79,18 @@ module PCO
         else
           fail "unknown status #{result.status}"
         end
+      end
+
+      def _build_body(body)
+        if _needs_url_encoded?
+          Faraday::Utils.build_nested_query(body)
+        else
+          body.to_json
+        end
+      end
+
+      def _needs_url_encoded?
+        @url =~ /oauth\/[a-z]+\z/
       end
 
       def _build_endpoint(path)
