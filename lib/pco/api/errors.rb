@@ -8,7 +8,7 @@ module PCO
 
         def initialize(response)
           @status = response.status
-          @message = response.body
+          @message = response.body.is_a?(Hash) && response.body['message'] || response.body.to_s
         end
 
         def to_s

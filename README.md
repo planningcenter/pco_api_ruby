@@ -203,16 +203,15 @@ The following errors may be raised by the library, depending on the API response
 
 The exception object has the following methods:
 
-| Method  | Content                                         |
-| ------- | ----------------------------------------------- |
-| status  | HTTP status code returned by the server         |
-| message | the body of the response returned by the server |
+| Method  | Content                                 |
+| ------- | --------------------------------------- |
+| status  | HTTP status code returned by the server |
+| message | the message returned by the API         |
 
-The `message` will usually be a hash (produced by parsing the response JSON),
-but in the case of some server errors, may be a string containing the raw response.
+The `message` should be a simple string given by the API, e.g. "Resource Not Found".
 
 Alternatively, you may rescue `PCO::API::Errors::BaseError` and branch your code based on
-its `status` code.
+the status code returned by calling `error.status`.
 
 ## Copyright & License
 

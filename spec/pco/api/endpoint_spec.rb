@@ -69,9 +69,13 @@ describe PCO::API::Endpoint do
       end
 
       it 'raises a NotFound error' do
-        expect {
-          subject.get
-        }.to raise_error(PCO::API::Errors::NotFound)
+        error = begin
+                  subject.get
+                rescue PCO::API::Errors::NotFound => e
+                  e
+                end
+        expect(error.status).to eq(404)
+        expect(error.message).to eq('Resource Not Found')
       end
     end
 
