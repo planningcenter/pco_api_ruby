@@ -187,7 +187,7 @@ api.people.v2.people[1].delete
 
 ## Errors
 
-The following errors may be raised, which you should rescue in most circumstances.
+The following errors may be raised by the library, depending on the API response status code.
 
 | HTTP Status Codes   | Error Class                                                               |
 | ------------------- | ------------------------------------------------------------------------- |
@@ -201,7 +201,7 @@ The following errors may be raised, which you should rescue in most circumstance
 | 500                 | `PCO::API::Errors::InternalServerError` < `PCO::API::Errors::ServerError` |
 | other 5xx errors    | `PCO::API::Errors::ServerError`                                           |
 
-The exception class has the following methods:
+The exception object has the following methods:
 
 | Method  | Content                                         |
 | ------- | ----------------------------------------------- |
@@ -210,6 +210,9 @@ The exception class has the following methods:
 
 The `message` will usually be a hash (produced by parsing the response JSON),
 but in the case of some server errors, may be a string containing the raw response.
+
+Alternatively, you may rescue `PCO::API::Errors::BaseError` and branch your code based on
+its `status` code.
 
 ## Copyright & License
 
