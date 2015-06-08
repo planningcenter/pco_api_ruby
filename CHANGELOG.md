@@ -1,3 +1,7 @@
+# 1.1.2 (June 8, 2015)
+
+* Fix: fix "break from proc-closure (LocalJumpError)" error by upgrading Excon
+
 # 1.1.1 (June 5, 2015)
 
 * Fix: always return a string for error.message
