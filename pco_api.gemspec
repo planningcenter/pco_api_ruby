@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "faraday", "~> 0.9.1"
   s.add_dependency "faraday_middleware", "~> 0.9.1"
-  s.add_dependency "excon", "~> 0.30.0"
+  s.add_dependency "excon", "~> 0.45.3"
   s.add_development_dependency "rspec", "~> 3.2"
   s.add_development_dependency "webmock", "~> 1.21"
   s.add_development_dependency "pry", "~> 0.10"
