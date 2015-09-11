@@ -63,22 +63,24 @@ api.people.v2.people.get(order: 'last_name')
     {
       "type" => "Person",
       "id" => "271",
-      "first_name" => "Jean",
-      "middle_name" => nil,
-      "last_name" => "Abernathy",
-      "birthdate" => "1885-01-01",
-      "anniversary" => nil,
-      "gender" => "F",
-      "grade" => -1,
-      "child" => false,
-      "status" => "active",
-      "school_type" => nil,
-      "graduation_year" => nil,
-      "site_administrator" => false,
-      "people_permissions" => nil,
-      "created_at" => "2015-04-01T20:18:22Z",
-      "updated_at" => "2015-04-10T18:59:51Z",
-      "avatar" => nil,
+      "attributes" => {
+        "first_name" => "Jean",
+        "middle_name" => nil,
+        "last_name" => "Abernathy",
+        "birthdate" => "1885-01-01",
+        "anniversary" => nil,
+        "gender" => "F",
+        "grade" => -1,
+        "child" => false,
+        "status" => "active",
+        "school_type" => nil,
+        "graduation_year" => nil,
+        "site_administrator" => false,
+        "people_permissions" => nil,
+        "created_at" => "2015-04-01T20:18:22Z",
+        "updated_at" => "2015-04-10T18:59:51Z",
+        "avatar" => nil,
+      },
       "links" => {
         "self" => "https://api.planningcenteronline.com/people/v2/people/271"
       }
@@ -91,7 +93,7 @@ api.people.v2.people.get(order: 'last_name')
     "next" => {
       "offset" => 25
     },
-    "orderable_by" => [
+    "can_order_by" => [
       "first_name",
       "middle_name",
       "last_name",
@@ -108,7 +110,7 @@ api.people.v2.people.get(order: 'last_name')
       "created_at",
       "updated_at"
     ],
-    "filterable_by" => [
+    "can_query_by" => [
       "first_name",
       "middle_name",
       "last_name",
@@ -137,7 +139,11 @@ api.people.v2.people.get(order: 'last_name')
       "name_suffix",
       "field_data",
       "apps"
-    ]
+    ],
+    "parent" => {
+      "id" => "1",
+      "type" => "Organization"
+    }
   }
 }
 ```
