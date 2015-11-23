@@ -1,3 +1,7 @@
+# 1.2.0 (November 23, 2015)
+
+* Improvement: improve exception `message` and add `detail` method for raw response
+
 # 1.1.2 (June 8, 2015)
 
 * Fix: fix "break from proc-closure (LocalJumpError)" error by upgrading Excon
