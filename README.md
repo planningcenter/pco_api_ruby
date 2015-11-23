@@ -209,12 +209,15 @@ The following errors may be raised by the library, depending on the API response
 
 The exception object has the following methods:
 
-| Method  | Content                                 |
-| ------- | --------------------------------------- |
-| status  | HTTP status code returned by the server |
-| message | the message returned by the API         |
+| Method  | Content                                     |
+| ------- | ------------------------------------------- |
+| status  | HTTP status code returned by the server     |
+| message | the message returned by the API             |
+| detail  | the full error response returned by the API |
 
 The `message` should be a simple string given by the API, e.g. "Resource Not Found".
+
+In the case of validation errors, the `message` is a summary string built from the raw `detail`.
 
 Alternatively, you may rescue `PCO::API::Errors::BaseError` and branch your code based on
 the status code returned by calling `error.status`.
