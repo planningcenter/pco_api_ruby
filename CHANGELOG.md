@@ -1,3 +1,7 @@
+# 1.2.1 (November 18, 2016)
+
+* Chore: bump Faraday dependency versions and loosen specificity
+
 # 1.2.0 (November 23, 2015)
 
 * Improvement: improve exception `message` and add `detail` method for raw response
