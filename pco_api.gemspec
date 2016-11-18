@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "faraday", "~> 0.9.1"
-  s.add_dependency "faraday_middleware", "~> 0.9.1"
+  s.add_dependency "faraday", "~> 0.10"
+  s.add_dependency "faraday_middleware", "~> 0.10"
   s.add_dependency "excon", "~> 0.45.3"
   s.add_development_dependency "rspec", "~> 3.2"
   s.add_development_dependency "webmock", "~> 1.21"
