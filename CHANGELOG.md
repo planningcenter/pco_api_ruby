@@ -1,3 +1,7 @@
+# 1.2.2 (August 17, 2017)
+
+* Chore: fix Faraday middleware warning
+
 # 1.2.1 (November 18, 2016)
 
 * Chore: bump Faraday dependency versions and loosen specificity

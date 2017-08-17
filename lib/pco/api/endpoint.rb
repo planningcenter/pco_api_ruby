@@ -116,7 +116,6 @@ module PCO
 
       def _build_connection
         Faraday.new(url: url) do |faraday|
-          faraday.adapter :excon
           faraday.response :json, content_type: /\bjson$/
           if @basic_auth_token && @basic_auth_secret
             faraday.basic_auth @basic_auth_token, @basic_auth_secret
@@ -125,6 +124,7 @@ module PCO
           else
             fail Errors::AuthRequiredError, "You must specify either HTTP basic auth credentials or an OAuth2 access token."
           end
+          faraday.adapter :excon
         end
       end
     end
