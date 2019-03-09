@@ -42,6 +42,13 @@ gem install pco_api
     # GET /people/v2/households?order=name
     ```
 
+5. To query dataset according to `can_query_by` variables:
+
+    ```ruby
+    api.people.v2.people.get(order: 'name', 'where[membership]':'Member')
+    # GET /people/v2/people?order=name&where[membership]=Member
+    ```
+
 ## Example
 
 ```ruby
