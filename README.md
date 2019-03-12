@@ -231,4 +231,4 @@ the status code returned by calling `error.status`.
 
 ## Copyright & License
 
-Copyright 2015, Ministry Centered Technologies. Licensed MIT.
+Copyright Ministry Centered Technologies. Licensed MIT.
