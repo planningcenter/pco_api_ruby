@@ -67,9 +67,12 @@ module PCO
       private
 
       def _build_response(result)
+        puts result.headers.select { |k, _v| k.match /X-PCO-API/ }
         case result.status
         when 200..299
-          result.body
+          res = result.body
+          res['headers'] = result.headers
+          res
         when 400
           fail Errors::BadRequest, result
         when 401
@@ -82,6 +85,8 @@ module PCO
           fail Errors::MethodNotAllowed, result
         when 422
           fail Errors::UnprocessableEntity, result
+        when 429
+          fail Errors::TooManyRequests, result
         when 400..499
           fail Errors::ClientError, result
         when 500
