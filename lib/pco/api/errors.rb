@@ -52,6 +52,7 @@ module PCO
       class NotFound            < ClientError; end # 404
       class MethodNotAllowed    < ClientError; end # 405
       class UnprocessableEntity < ClientError; end # 422
+      class TooManyRequests     < ClientError; end # 429
 
       class ServerError         < BaseError;   end # 500..599
       class InternalServerError < ServerError; end # 500
