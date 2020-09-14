@@ -67,7 +67,7 @@ module PCO
       private
 
       def _build_response(result)
-        puts result.headers.select { |k, _v| k.match /X-PCO-API/ }
+        # puts result.headers.select { |k, _v| k.match /X-PCO-API/ }
         case result.status
         when 200..299
           res = result.body
