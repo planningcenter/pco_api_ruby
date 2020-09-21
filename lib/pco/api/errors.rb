@@ -4,11 +4,12 @@ module PCO
       class AuthRequiredError < StandardError; end
 
       class BaseError < StandardError
-        attr_reader :status, :detail
+        attr_reader :status, :detail, :headers
 
         def initialize(response)
           @status = response.status
           @detail = response.body
+          @headers = response.headers
         end
 
         def to_s

@@ -50,6 +50,7 @@ describe PCO::API::Endpoint do
       it 'returns the result of making a GET request to the endpoint' do
         expect(@result).to be_a(Hash)
         expect(@result['data']).to eq(result)
+        expect(@result.headers).to eq('Content-Type' => 'application/vnd.api+json')
       end
     end
 
@@ -76,6 +77,7 @@ describe PCO::API::Endpoint do
                 end
         expect(error.status).to eq(404)
         expect(error.message).to eq('Resource Not Found')
+        expect(error.headers).to eq('Content-Type' => 'application/vnd.api+json')
       end
     end
 

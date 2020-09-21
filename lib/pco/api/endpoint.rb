@@ -5,6 +5,10 @@ module PCO
   module API
     URL = 'https://api.planningcenteronline.com'
 
+    class Response < Hash
+      attr_accessor :headers
+    end
+
     class Endpoint
       attr_reader :url, :last_result
 
@@ -69,8 +73,8 @@ module PCO
       def _build_response(result)
         case result.status
         when 200..299
-          res = result.body
-          res['headers'] = result.headers
+          res = Response[result.body]
+          res.headers = result.headers
           res
         when 400
           fail Errors::BadRequest, result
