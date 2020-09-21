@@ -1,3 +1,9 @@
+# 1.3.0 (September 21, 2020)
+
+* Feature: add TooManyRequests (429) error class
+* Feature: expose headers as attr on response and on error class
+* Chore: bump version of Excon
+
 # 1.2.2 (August 17, 2017)
 
 * Chore: fix Faraday middleware warning
