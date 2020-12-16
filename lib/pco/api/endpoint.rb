@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware'
 
@@ -73,27 +75,27 @@ module PCO
           res['headers'] = result.headers
           res
         when 400
-          fail Errors::BadRequest, result
+          raise Errors::BadRequest, result
         when 401
-          fail Errors::Unauthorized, result
+          raise Errors::Unauthorized, result
         when 403
-          fail Errors::Forbidden, result
+          raise Errors::Forbidden, result
         when 404
-          fail Errors::NotFound, result
+          raise Errors::NotFound, result
         when 405
-          fail Errors::MethodNotAllowed, result
+          raise Errors::MethodNotAllowed, result
         when 422
-          fail Errors::UnprocessableEntity, result
+          raise Errors::UnprocessableEntity, result
         when 429
-          fail Errors::TooManyRequests, result
+          raise Errors::TooManyRequests, result
         when 400..499
-          fail Errors::ClientError, result
+          raise Errors::ClientError, result
         when 500
-          fail Errors::InternalServerError, result
+          raise Errors::InternalServerError, result
         when 500..599
-          fail Errors::ServerError, result
+          raise Errors::ServerError, result
         else
-          fail "unknown status #{result.status}"
+          raise "unknown status #{result.status}"
         end
       end
 
@@ -106,7 +108,7 @@ module PCO
       end
 
       def _needs_url_encoded?
-        @url =~ /oauth\/[a-z]+\z/
+        @url =~ %r{oauth/[a-z]+\z}
       end
 
       def _build_endpoint(path)
@@ -126,7 +128,8 @@ module PCO
           elsif @oauth_access_token
             faraday.headers['Authorization'] = "Bearer #{@oauth_access_token}"
           else
-            fail Errors::AuthRequiredError, "You must specify either HTTP basic auth credentials or an OAuth2 access token."
+            raise Errors::AuthRequiredError,
+                  'You must specify either HTTP basic auth credentials or an OAuth2 access token.'
           end
           faraday.adapter :excon
         end

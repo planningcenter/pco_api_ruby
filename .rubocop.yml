@@ -1,8 +1,32 @@
+AllCops:
+  TargetRubyVersion: 2.6
+
 Style/SpaceAroundOperators:
   Enabled: false
 
 Metrics/LineLength:
+  Exclude:
+    - 'pco_api.gemspec'
   Max: 120
 
 Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Max: 100
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 150
+
+Style/MissingRespondToMissing:
   Enabled: false

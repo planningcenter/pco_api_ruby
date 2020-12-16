@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../spec_helper'
 require 'json'
 
@@ -34,16 +36,20 @@ describe PCO::API::Endpoint do
 
       let(:result) do
         {
-          'type'  => 'Organization',
-          'id'    => '1',
-          'name'  => 'Ministry Centered Technologies',
+          'type' => 'Organization',
+          'id' => '1',
+          'name' => 'Ministry Centered Technologies',
           'links' => {}
         }
       end
 
       before do
         stub_request(:get, 'https://api.planningcenteronline.com/people/v2')
-          .to_return(status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+          .to_return(
+            status: 200,
+            body: { data: result }.to_json,
+            headers: { 'Content-Type' => 'application/vnd.api+json' }
+          )
         @result = subject.get
       end
 
@@ -58,7 +64,7 @@ describe PCO::API::Endpoint do
 
       let(:result) do
         {
-          'status'  => 404,
+          'status' => 404,
           'message' => 'Resource Not Found'
         }
       end
@@ -70,10 +76,10 @@ describe PCO::API::Endpoint do
 
       it 'raises a NotFound error' do
         error = begin
-                  subject.get
-                rescue PCO::API::Errors::NotFound => e
-                  e
-                end
+          subject.get
+        rescue PCO::API::Errors::NotFound => e
+          e
+        end
         expect(error.status).to eq(404)
         expect(error.message).to eq('Resource Not Found')
       end
@@ -84,7 +90,7 @@ describe PCO::API::Endpoint do
 
       let(:result) do
         {
-          'status'  => 400,
+          'status' => 400,
           'message' => 'Bad request'
         }
       end
@@ -95,9 +101,9 @@ describe PCO::API::Endpoint do
       end
 
       it 'raises a ClientError error' do
-        expect {
+        expect do
           subject.get
-        }.to raise_error(PCO::API::Errors::ClientError)
+        end.to raise_error(PCO::API::Errors::ClientError)
       end
     end
 
@@ -106,7 +112,7 @@ describe PCO::API::Endpoint do
 
       let(:result) do
         {
-          'status'  => 500,
+          'status' => 500,
           'message' => 'System error has occurred'
         }
       end
@@ -117,9 +123,9 @@ describe PCO::API::Endpoint do
       end
 
       it 'raises a ServerError error' do
-        expect {
+        expect do
           subject.get
-        }.to raise_error(PCO::API::Errors::ServerError)
+        end.to raise_error(PCO::API::Errors::ServerError)
       end
     end
   end
@@ -129,24 +135,28 @@ describe PCO::API::Endpoint do
 
     let(:resource) do
       {
-        'type'       => 'Person',
+        'type' => 'Person',
         'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
+        'last_name' => 'Morgan'
       }
     end
 
     let(:result) do
       {
-        'type'       => 'Person',
-        'id'         => '1',
+        'type' => 'Person',
+        'id' => '1',
         'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
+        'last_name' => 'Morgan'
       }
     end
 
     before do
       stub_request(:post, 'https://api.planningcenteronline.com/people/v2/people')
-        .to_return(status: 201, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+        .to_return(
+          status: 201,
+          body: { data: result }.to_json,
+          headers: { 'Content-Type' => 'application/vnd.api+json' }
+        )
       @result = subject.post(data: resource)
     end
 
@@ -161,24 +171,28 @@ describe PCO::API::Endpoint do
 
     let(:resource) do
       {
-        'type'       => 'Person',
+        'type' => 'Person',
         'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
+        'last_name' => 'Morgan'
       }
     end
 
     let(:result) do
       {
-        'type'       => 'Person',
-        'id'         => '1',
+        'type' => 'Person',
+        'id' => '1',
         'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
+        'last_name' => 'Morgan'
       }
     end
 
     before do
       stub_request(:patch, 'https://api.planningcenteronline.com/people/v2/people/1')
-        .to_return(status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+        .to_return(
+          status: 200,
+          body: { data: result }.to_json,
+          headers: { 'Content-Type' => 'application/vnd.api+json' }
+        )
       @result = subject.patch(data: resource)
     end
 
