@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PCO
   module API
     module Errors
@@ -7,6 +9,7 @@ module PCO
         attr_reader :status, :detail
 
         def initialize(response)
+          super
           @status = response.status
           @detail = response.body
         end
@@ -17,6 +20,7 @@ module PCO
 
         def message
           return detail.to_s unless detail.is_a?(Hash)
+
           detail['message'] || validation_message || detail.to_s
         end
 
@@ -28,6 +32,7 @@ module PCO
 
         def validation_message
           return if Array(detail['errors']).empty?
+
           errors = detail['errors'].map do |error|
             error_to_string(error)
           end
@@ -36,6 +41,7 @@ module PCO
 
         def error_to_string(error)
           return unless error.is_a?(Hash)
+
           [
             "#{error['title']}:",
             error.fetch('meta', {})['resource'],
@@ -45,17 +51,45 @@ module PCO
         end
       end
 
-      class ClientError         < BaseError;   end # 400..499
-      class BadRequest          < ClientError; end # 400
-      class Unauthorized        < ClientError; end # 401
-      class Forbidden           < ClientError; end # 403
-      class NotFound            < ClientError; end # 404
-      class MethodNotAllowed    < ClientError; end # 405
-      class UnprocessableEntity < ClientError; end # 422
-      class TooManyRequests     < ClientError; end # 429
+      class ClientError < BaseError
+        # 400..499
+      end
 
-      class ServerError         < BaseError;   end # 500..599
-      class InternalServerError < ServerError; end # 500
+      class BadRequest < ClientError
+        # 400
+      end
+
+      class Unauthorized < ClientError
+        # 401
+      end
+
+      class Forbidden < ClientError
+        # 403
+      end
+
+      class NotFound < ClientError
+        # 404
+      end
+
+      class MethodNotAllowed < ClientError
+        # 405
+      end
+
+      class UnprocessableEntity < ClientError
+        # 422
+      end
+
+      class TooManyRequests < ClientError
+        # 429
+      end
+
+      class ServerError < BaseError
+        # 500..599
+      end
+
+      class InternalServerError < ServerError
+        # 500
+      end
     end
   end
 end
