@@ -14,15 +14,15 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.email       = 'support@planningcenteronline.com'
 
-  s.required_ruby_version = '>= 2.6.0'
+  s.required_ruby_version = '>= 3.0.0'
 
   s.files = Dir['lib/**/*', 'README.md']
   s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'excon', '>= 0.71.0'
-  s.add_dependency 'faraday', '~> 0.10'
-  s.add_dependency 'faraday_middleware', '~> 0.10'
+  s.add_dependency 'faraday'
+  s.add_dependency 'faraday_middleware'
   s.add_development_dependency 'pry', '~> 0.10'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'webmock', '~> 1.21'
+  s.add_development_dependency 'webmock', '~> 3.1'
 end
