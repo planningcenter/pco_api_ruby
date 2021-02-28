@@ -12,6 +12,8 @@ module PCO
     class Endpoint
       attr_reader :url, :last_result
 
+      attr_accessor :retry_when_rate_limited
+
       def initialize(url: URL, oauth_access_token: nil, basic_auth_token: nil, basic_auth_secret: nil, connection: nil)
         @url = url
         @oauth_access_token = oauth_access_token
@@ -19,6 +21,7 @@ module PCO
         @basic_auth_secret = basic_auth_secret
         @connection = connection || _build_connection
         @cache = {}
+        @retry_when_rate_limited = true
       end
 
       def method_missing(method_name, *_args)
@@ -29,7 +32,7 @@ module PCO
         _build_endpoint(id.to_s)
       end
 
-      def respond_to?(method_name)
+      def respond_to?(method_name, _include_all = false)
         endpoint = _build_endpoint(method_name.to_s)
         begin
           endpoint.get
@@ -43,6 +46,8 @@ module PCO
       def get(params = {})
         @last_result = @connection.get(@url, params)
         _build_response(@last_result)
+      rescue Errors::TooManyRequests => e
+        _retry_after_timeout?(e) ? retry : raise
       end
 
       def post(body = {})
@@ -50,6 +55,8 @@ module PCO
           req.body = _build_body(body)
         end
         _build_response(@last_result)
+      rescue Errors::TooManyRequests => e
+        _retry_after_timeout?(e) ? retry : raise
       end
 
       def patch(body = {})
@@ -57,6 +64,8 @@ module PCO
           req.body = _build_body(body)
         end
         _build_response(@last_result)
+      rescue Errors::TooManyRequests => e
+        _retry_after_timeout?(e) ? retry : raise
       end
 
       def delete
@@ -66,6 +75,8 @@ module PCO
         else
           _build_response(@last_result)
         end
+      rescue Errors::TooManyRequests => e
+        _retry_after_timeout?(e) ? retry : raise
       end
 
       private
@@ -133,6 +144,16 @@ module PCO
             fail Errors::AuthRequiredError, "You must specify either HTTP basic auth credentials or an OAuth2 access token."
           end
           faraday.adapter :excon
+        end
+      end
+
+      def _retry_after_timeout?(e)
+        if @retry_when_rate_limited
+          secs = e.headers['Retry-After']
+          Kernel.sleep(secs ? secs.to_i : 1)
+          true
+        else
+          false
         end
       end
     end
