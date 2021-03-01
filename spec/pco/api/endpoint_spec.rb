@@ -124,6 +124,48 @@ describe PCO::API::Endpoint do
         }.to raise_error(PCO::API::Errors::ServerError)
       end
     end
+
+    context 'given a 429 error due to rate limiting' do
+      subject { base.people.v2 }
+
+      let(:result) do
+        {
+          'type'  => 'Organization',
+          'id'    => '1',
+          'name'  => 'Ministry Centered Technologies',
+          'links' => {}
+        }
+      end
+
+      before do
+        stub_request(:get, 'https://api.planningcenteronline.com/people/v2')
+          .to_return([
+            { status: 429, headers: { 'retry-after' => '2' } },
+            { status: 200, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' } }
+          ])
+      end
+
+      context 'given retry_when_rate_limited is true' do
+        before do
+          subject.retry_when_rate_limited = true
+        end
+
+        it 'sleeps, then makes the call again' do
+          expect(Kernel).to receive(:sleep).with(2)
+          expect(subject.get).to be_a(Hash)
+        end
+      end
+
+      context 'given retry_when_rate_limited is false' do
+        before do
+          subject.retry_when_rate_limited = false
+        end
+
+        it 'raises the TooManyRequests error' do
+          expect { subject.get }.to raise_error(PCO::API::Errors::TooManyRequests)
+        end
+      end
+    end
   end
 
   describe '#post' do

@@ -231,6 +231,17 @@ In the case of validation errors, the `message` is a summary string built from t
 Alternatively, you may rescue `PCO::API::Errors::BaseError` and branch your code based on
 the status code returned by calling `error.status`.
 
+### TooManyRequests Error
+
+By default, PCO::API::Endpoint will sleep and retry a request that fails with TooManyRequests due
+to rate limiting. If you would rather catch and handle such errors yourself, you can disable this
+behavior like this:
+
+```ruby
+api = PCO::API.new(...)
+api.retry_when_rate_limited = false
+```
+
 ## Copyright & License
 
 Copyright Ministry Centered Technologies. Licensed MIT.
