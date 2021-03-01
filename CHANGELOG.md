@@ -1,3 +1,7 @@
+# 2.0.0 (March 1, 2021)
+
+- Feature: automatically retry when rate limited
+
 # 1.3.1 (March 1, 2021)
 
 - Fix: argument passing for keyword args in Ruby 3
