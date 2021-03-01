@@ -1,3 +1,7 @@
+# 1.3.1 (March 1, 2021)
+
+- Fix: argument passing for keyword args in Ruby 3
+
 # 1.3.0 (September 21, 2020)
 
 * Feature: add TooManyRequests (429) error class
