@@ -137,9 +137,9 @@ module PCO
         Faraday.new(url: url) do |faraday|
           faraday.response :json, content_type: /\bjson$/
           if @basic_auth_token && @basic_auth_secret
-            faraday.basic_auth @basic_auth_token, @basic_auth_secret
+            faraday.request :basic_auth, @basic_auth_token, @basic_auth_secret
           elsif @oauth_access_token
-            faraday.headers['Authorization'] = "Bearer #{@oauth_access_token}"
+            faraday.request :authorization, 'Bearer', @oauth_access_token
           else
             fail Errors::AuthRequiredError, "You must specify either HTTP basic auth credentials or an OAuth2 access token."
           end
