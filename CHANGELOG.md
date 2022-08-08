@@ -1,3 +1,7 @@
+# 2.0.1 (August 8, 2022)
+
+- Chore: Update Faraday dependency and update Faraday auth setup
+
 # 2.0.0 (March 1, 2021)
 
 - Feature: automatically retry when rate limited
