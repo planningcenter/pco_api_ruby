@@ -169,34 +169,51 @@ describe PCO::API::Endpoint do
   end
 
   describe '#post' do
-    subject { base.people.v2.people }
+    context do
+      subject { base.people.v2.people }
 
-    let(:resource) do
-      {
-        'type'       => 'Person',
-        'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
-      }
+      let(:resource) do
+        {
+          'type'       => 'Person',
+          'first_name' => 'Tim',
+          'last_name'  => 'Morgan'
+        }
+      end
+
+      let(:result) do
+        {
+          'type'       => 'Person',
+          'id'         => '1',
+          'first_name' => 'Tim',
+          'last_name'  => 'Morgan'
+        }
+      end
+
+      before do
+        stub_request(:post, 'https://api.planningcenteronline.com/people/v2/people')
+          .to_return(status: 201, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
+        @result = subject.post(data: resource)
+      end
+
+      it 'returns the result of making a POST request to the endpoint' do
+        expect(@result).to be_a(Hash)
+        expect(@result['data']).to eq(result)
+      end
     end
 
-    let(:result) do
-      {
-        'type'       => 'Person',
-        'id'         => '1',
-        'first_name' => 'Tim',
-        'last_name'  => 'Morgan'
-      }
-    end
+    context 'given a 204 No Content response' do
+      subject { base.people.v2.some_action }
 
-    before do
-      stub_request(:post, 'https://api.planningcenteronline.com/people/v2/people')
-        .to_return(status: 201, body: { data: result }.to_json, headers: { 'Content-Type' => 'application/vnd.api+json' })
-      @result = subject.post(data: resource)
-    end
+      before do
+        stub_request(:post, 'https://api.planningcenteronline.com/people/v2/some_action')
+          .to_return(status: 204, body: '')
+        @result = subject.post
+      end
 
-    it 'returns the result of making a POST request to the endpoint' do
-      expect(@result).to be_a(Hash)
-      expect(@result['data']).to eq(result)
+      it 'returns an empty hash' do
+        expect(@result).to be_a(Hash)
+        expect(@result).to eq({})
+      end
     end
   end
 

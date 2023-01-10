@@ -83,6 +83,10 @@ module PCO
 
       def _build_response(result)
         case result.status
+        when 204
+          res = Response.new
+          res.headers = result.headers
+          res
         when 200..299
           res = Response[result.body]
           res.headers = result.headers
