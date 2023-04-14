@@ -1,5 +1,5 @@
 require 'faraday'
-require 'faraday_middleware'
+require 'faraday/excon'
 
 module PCO
   module API
@@ -141,7 +141,7 @@ module PCO
         Faraday.new(url: url) do |faraday|
           faraday.response :json, content_type: /\bjson$/
           if @basic_auth_token && @basic_auth_secret
-            faraday.request :basic_auth, @basic_auth_token, @basic_auth_secret
+            faraday.request :authorization, :basic, @basic_auth_token, @basic_auth_secret
           elsif @oauth_access_token
             faraday.request :authorization, 'Bearer', @oauth_access_token
           else
