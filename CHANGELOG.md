@@ -1,3 +1,7 @@
+# 2.1.0 (April 14, 2023)
+
+- Chore: Use 2.x version of Faraday
+
 # 2.0.2 (January 10, 2023)
 
 - Fix: fix bug handling 204 No Content responses
