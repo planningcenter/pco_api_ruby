@@ -1,0 +1,122 @@
+{
+  "links": {
+    "self": "http://api.pco.test/people/v2/people?include=emails%2Cgender&offset=2&per_page=1",
+    "prev": "http://api.pco.test/people/v2/people?include=emails%2Cgender&offset=1&per_page=1",
+    "next": "http://api.pco.test/people/v2/people?include=emails%2Cgender&offset=3&per_page=1"
+  },
+  "data": [
+    {
+      "type": "Person",
+      "id": "1",
+      "attributes": {
+        "first_name": "Han",
+        "last_name": "Solo"
+      },
+      "relationships": {
+        "gender": {
+          "data": {
+            "type": "Gender",
+            "id": "1"
+          }
+        },
+        "emails": {
+          "links": {
+            "related": "http://api.pco.test/people/v2/people/1/emails"
+          },
+          "data": [
+            {
+              "type": "Email",
+              "id": "1"
+            },
+            {
+              "type": "Email",
+              "id": "2"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/people/1",
+        "html": "http://people.pco.test/people/AC1"
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "Gender",
+      "id": "1",
+      "attributes": {
+        "value": "Male"
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/genders/1"
+      }
+    },
+    {
+      "type": "Email",
+      "id": "1",
+      "attributes": {
+        "address": "han.solo@pco.test",
+        "primary": true,
+        "created_at": "1977-05-25T23:04:01Z"
+      },
+      "relationships": {
+        "person": {
+          "data": {
+            "type": "Person",
+            "id": "1"
+          }
+        }
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/emails/1"
+      }
+    },
+    {
+      "type": "Email",
+      "id": "2",
+      "attributes": {
+        "address": "i.shot.first@pco.test",
+        "primary": false,
+        "created_at": "1997-01-31T23:04:01Z"
+      },
+      "relationships": {
+        "person": {
+          "data": {
+            "type": "Person",
+            "id": "1"
+          }
+        }
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/emails/1"
+      }
+    }
+  ],
+  "meta": {
+    "total_count": 10,
+    "count": 1,
+    "prev": {
+      "offset": 1
+    },
+    "next": {
+      "offset": 3
+    },
+    "can_order_by": [
+      "first_name"
+    ],
+    "can_query_by": [
+      "first_name"
+    ],
+    "can_include": [
+      "emails"
+    ],
+    "can_filter": [
+      "created_since"
+    ],
+    "parent": {
+      "id": "1",
+      "type": "Organization"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "data": {
+    "type": "Person",
+    "id": "1",
+    "attributes": {
+      "first_name": "Han",
+      "last_name": "Solo"
+    },
+    "relationships": {
+      "primary_campus": {
+        "data": null
+      },
+      "gender": {
+        "links": {
+          "related": "http://api.pco.test/people/v2/genders/1"
+        },
+        "data": {
+          "type": "Gender",
+          "id": "1"
+        }
+      },
+      "emails": {
+        "links": {
+          "related": "http://api.pco.test/people/v2/people/1/emails"
+        },
+        "data": [
+          {
+            "type": "Email",
+            "id": "1"
+          },
+          {
+            "type": "Email",
+            "id": "2"
+          }
+        ]
+      }
+    },
+    "links": {
+      "": "http://api.pco.test/people/v2/people/1/",
+      "addresses": "http://api.pco.test/people/v2/people/1/addresses",
+      "apps": "http://api.pco.test/people/v2/people/1/apps",
+      "connected_people": "http://api.pco.test/people/v2/people/1/connected_people",
+      "emails": "http://api.pco.test/people/v2/people/1/emails",
+      "field_data": "http://api.pco.test/people/v2/people/1/field_data",
+      "household_memberships": "http://api.pco.test/people/v2/people/1/household_memberships",
+      "households": "http://api.pco.test/people/v2/people/1/households",
+      "inactive_reason": null,
+      "marital_status": null,
+      "message_groups": "http://api.pco.test/people/v2/people/1/message_groups",
+      "messages": "http://api.pco.test/people/v2/people/1/messages",
+      "name_prefix": null,
+      "name_suffix": null,
+      "notes": "http://api.pco.test/people/v2/people/1/notes",
+      "organization": "http://api.pco.test/people/v2/people/1/organization",
+      "person_apps": "http://api.pco.test/people/v2/people/1/person_apps",
+      "phone_numbers": "http://api.pco.test/people/v2/people/1/phone_numbers",
+      "platform_notifications": "http://api.pco.test/people/v2/people/1/platform_notifications",
+      "primary_campus": null,
+      "recently_viewed_forms": "http://api.pco.test/people/v2/people/1/recently_viewed_forms",
+      "recently_viewed_lists": "http://api.pco.test/people/v2/people/1/recently_viewed_lists",
+      "recently_viewed_workflows": "http://api.pco.test/people/v2/people/1/recently_viewed_workflows",
+      "school": null,
+      "social_profiles": "http://api.pco.test/people/v2/people/1/social_profiles",
+      "topbar": "http://api.pco.test/people/v2/people/1/topbar",
+      "workflow_cards": "http://api.pco.test/people/v2/people/1/workflow_cards",
+      "workflow_shares": "http://api.pco.test/people/v2/people/1/workflow_shares",
+      "self": "http://api.pco.test/people/v2/people/1",
+      "html": "http://people.pco.test/people/AC1"
+    }
+  },
+  "included": [
+    {
+      "type": "Email",
+      "id": "1",
+      "attributes": {
+        "address": "han.solo@pco.test",
+        "primary": true,
+        "created_at": "1977-05-25T23:04:01Z"
+      },
+      "relationships": {
+        "person": {
+          "data": {
+            "type": "Person",
+            "id": "1"
+          }
+        }
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/emails/1"
+      }
+    },
+    {
+      "type": "Email",
+      "id": "2",
+      "attributes": {
+        "address": "i.shot.first@pco.test",
+        "primary": false,
+        "created_at": "1997-01-31T23:04:01Z"
+      },
+      "relationships": {
+        "person": {
+          "data": {
+            "type": "Person",
+            "id": "1"
+          }
+        }
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/emails/1"
+      }
+    },
+    {
+      "type": "Gender",
+      "id": "1",
+      "attributes": {
+        "value": "Male"
+      },
+      "links": {
+        "self": "http://api.pco.test/people/v2/genders/1"
+      }
+    }
+  ],
+  "meta": {
+    "can_include": [
+      "emails",
+      "field_data",
+      "households",
+      "inactive_reason",
+      "marital_status",
+      "name_prefix",
+      "name_suffix",
+      "organization",
+      "person_apps",
+      "phone_numbers",
+      "platform_notifications",
+      "primary_campus",
+      "school",
+      "social_profiles"
+    ],
+    "parent": {
+      "id": "809072478",
+      "type": "Organization"
+    }
+  }
+}

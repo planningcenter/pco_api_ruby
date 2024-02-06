@@ -5,10 +5,6 @@ module PCO
   module API
     URL = 'https://api.planningcenteronline.com'
 
-    class Response < Hash
-      attr_accessor :headers
-    end
-
     class Endpoint
       attr_reader :url, :last_result
 

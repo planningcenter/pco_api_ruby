@@ -57,6 +57,8 @@ module PCO
 
       class ServerError         < BaseError;   end # 500..599
       class InternalServerError < ServerError; end # 500
+
+      class UnknownResponseData < BaseError;   end
     end
   end
 end

@@ -49,6 +49,26 @@ gem install pco_api
     # GET /people/v2/people?where[membership]=Member
     ```
 
+6. To access response data
+
+    ```ruby
+    response = api.people.v2.people.get
+    people = repsonse.data
+    people.first.id
+    # "123"
+    people.first.attributes.first_name
+    # "Pico"
+    ```
+
+7. To eager load relationships
+
+    ```ruby
+    response = api.people.v2.people.get(include: "emails,phone_numbers")
+    people = response.data
+    people.first.emails.first.attributes.address
+    # "pico@planningcenter.com"
+    ```
+
 ## Example
 
 ```ruby
@@ -154,6 +174,42 @@ api.people.v2.people.get(order: 'last_name')
   }
 }
 ```
+
+## Response
+
+The response object is a hash, but it is wrapped in a custom subclass `PCO::API::Response`.
+This wrapper contains convenience methods such as dot notation access, response headers,
+and lookups for included resources.
+
+**`headers`**
+
+```ruby
+response = api.people.v2.people.get
+response.headers
+```
+
+**`included`**
+
+`response.meta.can_include` tells you which relationships you are able to eager load for each endpoint.
+
+`response.included` returns an array with all of the included resources mixed together. You need
+to look up the resource by `type` and `id`.
+
+There is also a convenience method when working with data resources that will auto-lookup
+the included resources.
+
+For example, if you query a person and include emails:
+
+```ruby
+response = api.people.v2.people[1].get(include: 'emails')
+person = response.data
+```
+
+You can see the raw relationships hash by doing `person['relationships']`, and manually lookup
+the emails in `response.included`.
+
+But `person`, which is an instance of `PCO::API::Resource`, also allows you to access those included
+emails directly by doing `person.emails`.
 
 ## get()
 
