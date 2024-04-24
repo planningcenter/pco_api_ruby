@@ -1,3 +1,7 @@
+# 2.1.1 (April 24, 2024)
+
+- Fix: Tell Faraday to use JSON for the request
+
 # 2.1.0 (April 14, 2023)
 
 - Chore: Use 2.x version of Faraday
