@@ -139,6 +139,7 @@ module PCO
 
       def _build_connection
         Faraday.new(url: url) do |faraday|
+          faraday.request :json
           faraday.response :json, content_type: /\bjson$/
           if @basic_auth_token && @basic_auth_secret
             faraday.request :authorization, :basic, @basic_auth_token, @basic_auth_secret
