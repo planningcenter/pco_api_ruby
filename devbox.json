@@ -1,0 +1,16 @@
+{
+  "$schema":  "https://raw.githubusercontent.com/jetify-com/devbox/0.12.0/.schema/devbox.schema.json",
+  "packages": ["ruby_3_3@latest"],
+  "shell": {
+    "init_hook": [
+    ],
+    "scripts": {
+      "setup": [
+        "bundle install"
+      ],
+      "test": [
+        "bundle exec rspec"
+      ]
+    }
+  }
+}
