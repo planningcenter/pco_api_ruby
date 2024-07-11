@@ -1,3 +1,7 @@
+# 2.1.2 (July 11, 2024)
+
+- Fix: Don't url-encode parameters to `/oauth` endpoints
+
 # 2.1.1 (April 24, 2024)
 
 - Fix: Tell Faraday to use JSON for the request
