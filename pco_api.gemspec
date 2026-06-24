@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "faraday", "> 2.0"
   s.add_dependency "faraday-excon", "~> 2.1"
   s.add_development_dependency "rspec", "~> 3.2"
-  s.add_development_dependency "webmock", "~> 1.21"
+  s.add_development_dependency "webmock", "~> 3.26"
   s.add_development_dependency "pry", "~> 0.10"
 end
